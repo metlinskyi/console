@@ -1,13 +1,13 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-internal class ApplicationRequestFactory 
+internal class RequestFactory 
 {
-    private readonly ILogger<ApplicationRequestFactory> logger;
+    private readonly ILogger<RequestFactory> logger;
     private readonly ApplicationArgs args;
 
-    public ApplicationRequestFactory(
-        ILogger<ApplicationRequestFactory> logger, 
+    public RequestFactory(
+        ILogger<RequestFactory> logger, 
         ApplicationArgs args
         )
     {
@@ -15,16 +15,16 @@ internal class ApplicationRequestFactory
         this.args = args;
     }
 
-    public ApplicationRequest CreateRequest(IServiceProvider provider)
+    public Request CreateRequest(IServiceProvider provider)
     {
         logger.LogInformation($"{args.Method} method");
         
         switch(args.Method){
             case "GET":
-                return provider.GetKeyedService<ApplicationRequest>(HttpMethod.Get) 
+                return provider.GetKeyedService<Request>(HttpMethod.Get) 
                     ?? throw new KeyNotFoundException("GET");
             case "POST":
-                return provider.GetKeyedService<ApplicationRequest>(HttpMethod.Post) 
+                return provider.GetKeyedService<Request>(HttpMethod.Post) 
                     ?? throw new KeyNotFoundException("POST");
         }
 

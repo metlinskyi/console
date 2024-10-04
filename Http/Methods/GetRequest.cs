@@ -1,14 +1,14 @@
-internal class GetRequest : ApplicationRequest
+internal class GetRequest : Request
 {
-    private readonly ApplicationClient client;
     private readonly ApplicationArgs args;
+    private readonly Client client;
 
     public GetRequest(
-        ApplicationClient client,
-        ApplicationArgs args)
+        ApplicationArgs args,
+        Client client)
     {
-        this.client = client;
         this.args = args;
+        this.client = client;
     }
 
     public override Task<HttpResponseMessage> RequestAsync(int number)

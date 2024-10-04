@@ -1,15 +1,14 @@
-
-internal class PostRequest : ApplicationRequest
+internal class PostRequest : Request
 {
-    private readonly ApplicationClient client;
     private readonly ApplicationArgs args;
+    private readonly Client client;
 
     public PostRequest(
-        ApplicationClient client,
-        ApplicationArgs args)
+        ApplicationArgs args,
+        Client client)
     {
-        this.client = client;
         this.args = args;
+        this.client = client;
     }
 
     public override Task<HttpResponseMessage> RequestAsync(int number)

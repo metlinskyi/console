@@ -1,8 +1,8 @@
-internal class ApplicationClient : HttpClient
+internal class Client : HttpClient
 {
-    public ApplicationClient(
+    public Client(
         ApplicationArgs args, 
-        ApplicationCookie cookie) 
+        Cookie cookie) 
         : base(new HttpClientHandler { 
                             AllowAutoRedirect = true, 
                             UseCookies = true, 

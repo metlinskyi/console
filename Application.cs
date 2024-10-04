@@ -5,16 +5,19 @@ internal sealed class Application
 {
     private readonly ILogger logger;
     private readonly ApplicationArgs args;
-    private readonly ApplicationRequest request;
+    private readonly Request request;
+    private readonly Content content;
 
     public Application(
         ILogger<Application> logger, 
         ApplicationArgs args,
-        ApplicationRequest request)
+        Request request,
+        Content content)
     {
         this.logger = logger;
         this.args = args;
         this.request = request;
+        this.content = content;
     }
 
     public async Task Run()
@@ -31,8 +34,7 @@ internal sealed class Application
             {
                 response = await request.RequestAsync(n);
                 response.EnsureSuccessStatusCode();
-                if(n < args.Count)
-                    response.Dispose();
+                await content.ResponseAsync(response, n);
             }
         }
         catch (HttpRequestException e)
@@ -46,13 +48,6 @@ internal sealed class Application
             logger.LogInformation(watch.Elapsed.Minutes > 0 
                 ? $"{watch.Elapsed.Minutes} minutes"
                 : $"{watch.Elapsed.Seconds} seconds");
-                
-            if(response != null)
-            {
-                string responseBody = await response.Content.ReadAsStringAsync();
-                response?.Dispose();
-                logger.LogInformation(responseBody);
-            }
         }
     }
 }

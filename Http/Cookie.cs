@@ -2,15 +2,15 @@ using System.Net;
 using System.Runtime.Serialization.Formatters.Soap;
 using Microsoft.Extensions.Logging;
 
-internal class ApplicationCookie : IDisposable
+internal class Cookie : IDisposable
 {
     private readonly SoapFormatter formatter = new SoapFormatter();
     private readonly CookieContainer container = new CookieContainer();
-    private readonly ILogger<ApplicationCookie> logger;
+    private readonly ILogger<Cookie> logger;
     private readonly FileInfo? file = null;
 
-    public ApplicationCookie(
-        ILogger<ApplicationCookie> logger, 
+    public Cookie(
+        ILogger<Cookie> logger, 
         ApplicationArgs args)
     {
         this.logger = logger;
@@ -40,5 +40,5 @@ internal class ApplicationCookie : IDisposable
         }
     }
 
-    public static implicit operator CookieContainer(ApplicationCookie c) => c.container;
+    public static implicit operator CookieContainer(Cookie c) => c.container;
 }
