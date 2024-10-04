@@ -5,16 +5,16 @@ internal sealed class Application
 {
     private readonly ILogger logger;
     private readonly ApplicationArgs args;
-    private readonly ApplicationClient client;
+    private readonly ApplicationRequest request;
 
     public Application(
         ILogger<Application> logger, 
         ApplicationArgs args,
-        ApplicationClient client)
+        ApplicationRequest request)
     {
         this.logger = logger;
         this.args = args;
-        this.client = client;
+        this.request = request;
     }
 
     public async Task Run()
@@ -29,7 +29,7 @@ internal sealed class Application
         {        
             foreach(int n in Enumerable.Range(args.Start, args.Count))
             {
-                response = await client.PostAsync(string.Format(args.RequestUri, n), null);
+                response = await request.RequestAsync(n);
                 response.EnsureSuccessStatusCode();
                 if(n < args.Count)
                     response.Dispose();
