@@ -5,23 +5,23 @@ internal record ApplicationArgs
     public ApplicationArgs(string[] args)
     {
         var cookiesOption = new Option<string?>(
-            name: "--Cookies",
+            aliases: ["-cookies", "--Cookies"],
             getDefaultValue: () => null);
 
         var baseOption = new Option<string>(
-            name: "--BaseAddress",
+            aliases: ["-b", "--BaseAddress"],
             getDefaultValue: () => "http://localhost");
 
         var requestUriOption = new Option<string>(
-            name: "--RequestUri",
+            aliases: ["-r", "--RequestUri"],
             getDefaultValue: () => "/{0}");
 
         var startOption = new Option<int>(
-            name: "--Start",
+            aliases: ["-s", "--Start"],
             getDefaultValue: () => 0);
 
         var countOption = new Option<int>(
-            name: "--Count",
+            aliases: ["-c", "--Count"],
             getDefaultValue: () => 10);
 
         var rootCommand = new RootCommand
