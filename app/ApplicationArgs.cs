@@ -18,6 +18,7 @@ internal record ApplicationArgs
 
         var methodOption = new Option<string>(
             aliases: ["-m", "--Method"],
+            description: "GET,POST supported only",
             getDefaultValue: () => "GET");
 
         var startOption = new Option<int>(
@@ -43,7 +44,7 @@ internal record ApplicationArgs
             Cookies = cookies;
             BaseAddress = baseAddress;
             RequestUri = requestUri;
-            Method = method;
+            Method = GetHttpMethod(method);
             Start = start;
             Count = count;
         }, cookiesOption, baseOption, requestUriOption, methodOption, startOption, countOption);
@@ -54,7 +55,20 @@ internal record ApplicationArgs
     public string? Cookies { get; private set; } = string.Empty;
     public string BaseAddress { get; private set; } = string.Empty;
     public string RequestUri { get; private set; } = string.Empty;
-    public string Method { get; private set; } = string.Empty;
     public int Start { get; private set; }
     public int Count { get; private set; }
+    public HttpMethod Method { get; private set; } = HttpMethod.Get;
+    public ContentType ContentType { get; private set; }
+
+    private HttpMethod GetHttpMethod(string method)
+    {
+        switch(method.ToUpper()){
+            case "GET":
+                return HttpMethod.Get;
+            case "POST":
+                return HttpMethod.Post;
+        }
+
+        throw new NotSupportedException($"The method '{method}' is not supported.");
+    }
 }

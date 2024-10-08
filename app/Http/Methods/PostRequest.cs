@@ -1,4 +1,4 @@
-internal class PostRequest : Request
+internal class PostRequest : IRequest
 {
     private readonly ApplicationArgs args;
     private readonly Client client;
@@ -11,7 +11,7 @@ internal class PostRequest : Request
         this.client = client;
     }
 
-    public override Task<HttpResponseMessage> RequestAsync(int number)
+    public Task<HttpResponseMessage> RequestAsync(int number)
     {
         return client.PostAsync(string.Format(args.RequestUri, number), null);
     }

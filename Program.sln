@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bomber", "Program.csproj", "{4927B4DD-E669-4608-903E-E49175190C30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bomber", "app/Program.csproj", "{4927B4DD-E669-4608-903E-E49175190C30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

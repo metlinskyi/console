@@ -1,4 +1,4 @@
-internal class GetRequest : Request
+internal class GetRequest : IRequest
 {
     private readonly ApplicationArgs args;
     private readonly Client client;
@@ -11,7 +11,7 @@ internal class GetRequest : Request
         this.client = client;
     }
 
-    public override Task<HttpResponseMessage> RequestAsync(int number)
+    public Task<HttpResponseMessage> RequestAsync(int number)
     {
         return client.GetAsync(string.Format(args.RequestUri, number));
     }

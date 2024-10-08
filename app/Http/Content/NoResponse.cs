@@ -1,19 +1,19 @@
 using Microsoft.Extensions.Logging;
 
-internal class NoContent : Content
+internal class NoResponse : IResponse
 {
-    private readonly ILogger<NoContent> logger;
+    private readonly ILogger<NoResponse> logger;
     private readonly ApplicationArgs args;
 
-    public NoContent(        
-        ILogger<NoContent> logger, 
+    public NoResponse(        
+        ILogger<NoResponse> logger, 
         ApplicationArgs args)
     {
         this.logger = logger;
         this.args = args;
     }
 
-    public override async Task ResponseAsync(HttpResponseMessage response, int number)
+    public async Task ResponseAsync(HttpResponseMessage response, int number)
     {
         await Task.Yield();
         response.Dispose();

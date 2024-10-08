@@ -22,3 +22,6 @@ docker run -ti --rm bomber:latest \
     -s 10 \
     -c  10    
 ``` 
+
+
+dotnet add tests/Tests.csproj reference app/Program.csproj

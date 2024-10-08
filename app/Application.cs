@@ -5,24 +5,24 @@ internal sealed class Application
 {
     private readonly ILogger logger;
     private readonly ApplicationArgs args;
-    private readonly Request request;
-    private readonly Content content;
+    private readonly IRequest request;
+    private readonly IResponse response;
 
     public Application(
         ILogger<Application> logger, 
         ApplicationArgs args,
-        Request request,
-        Content content)
+        IRequest request,
+        IResponse response)
     {
         this.logger = logger;
         this.args = args;
         this.request = request;
-        this.content = content;
+        this.response = response;
     }
 
     public async Task Run()
     {        
-        HttpResponseMessage? response = null;
+        HttpResponseMessage? message = null;
 
         logger.LogInformation($"{args.BaseAddress}{args.RequestUri}");
 
@@ -32,9 +32,9 @@ internal sealed class Application
         {        
             foreach(int n in Enumerable.Range(args.Start, args.Count))
             {
-                response = await request.RequestAsync(n);
-                response.EnsureSuccessStatusCode();
-                await content.ResponseAsync(response, n);
+                message = await request.RequestAsync(n);
+                message.EnsureSuccessStatusCode();
+                await response.ResponseAsync(message, n);
             }
         }
         catch (HttpRequestException e)

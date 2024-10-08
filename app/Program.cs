@@ -7,4 +7,4 @@ await new ServiceCollection()
     .AddScoped<Application>()
     .AddHttpClient()
     .BuildServiceProvider()
-    .CreateApplicationScope();   
+    .CreateApplicationScope();
